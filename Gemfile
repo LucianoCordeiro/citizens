@@ -57,3 +57,6 @@ group :development do
   # gem "spring"
 end
 
+gem "kaminari"
+gem "bootstrap"
+gem "sassc-rails"
