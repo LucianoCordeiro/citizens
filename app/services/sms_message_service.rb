@@ -17,6 +17,8 @@ class SmsMessageService
       to: to,
       from: "+19292389877"
     )
+  rescue Twilio::REST::RestError => e
+    Rails.logger.error(e.message)
   end
 
   def twilio_credentials
