@@ -1,0 +1,143 @@
+<div class="container">
+
+  <p class="h3 mb-5 mt-5">Munícipes</p>
+
+  <%= link_to(new_citizen_path, class: 'btn btn-warning btn-md icon-btn mb-5') do %>
+    Cadastrar Munícipe
+  <% end %>
+
+  <%= form_tag(citizens_path, method: :get) do |f| %>
+    <div class="card bg-transparent mb-3">
+      <div class="card-header">Filtros</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <small>Nome, E-mail, Telefone, CPF ou CNS</small>
+            <%= text_field_tag(:q, params[:q], class: "form-control") %>
+          </div>
+          <div class="col-md-2">
+            <small>Data de nascimento inicial</small>
+            <%= date_field("", :initial_date, class: 'form-control', value: params[:initial_date]) %>
+          </div>
+          <div class="col-md-2">
+            <small>Data de nascimento final</small>
+            <%= date_field("", :end_date, class: 'form-control', value: params[:end_date]) %>
+          </div>
+          <div class="col-md-2">
+            <small>Situação</small>
+            <% status_list = [["Ativo", "active"], ["Inativo", "inactive"]] %>
+            <%= select_tag(:status, options_for_select(status_list, selected: params[:status]), include_blank: false, class: 'form-control') %>
+          </div>
+          <div class="col-md-2">
+            <br>
+            <button class="btn btn-outline-secondary btn-round" type="submit">
+              <span class="fas fa-search"></span>
+              Filtrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="card">
+    <table class="table card-table">
+      <thead class="thead-light">
+        <tr>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>CNS</th>
+          <th>Telefone</th>
+          <th>E-mail</th>
+          <th>Data de Nascimento</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @citizens.each do |citizen| %>
+          <tr>
+            <td><%= citizen.name  %></td>
+            <td><%= citizen.cpf %></td>
+            <td><%= citizen.cns %></td>
+            <td><%= citizen.phone %></td>
+            <td><%= citizen.email %></td>
+            <td><%= citizen.birthdate.strftime("%d/%m/%Y") %></td>
+            <td>
+              <span class="badge text-bg-<%= citizen.active? ? "success" : "danger" %>">
+                <%= citizen.active? ? "Ativo" : "Inativo" %>
+              </span>
+            </td>
+            <td width='90px'>
+              <button type="button" class="btn btn-light btn-sm icon-btn" data-bs-toggle="modal" data-bs-target="#myModal">
+                Endereço
+              </button>
+
+              <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Endereço de <%= citizen.name %></h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <% address = citizen.address %>
+                      <div class="row">
+                        <div class="col-md-6">
+                            <small style="color:gray;">Logradouro</small><br>
+                          <%= address.street %>
+                        </div>
+                        <div class="col-md-6">
+                            <small style="color:gray;">Número</small><br>
+                          <%= address.number %>
+                        </div>
+                      </div><br>
+                      <div class="row">
+                        <div class="col-md-6">
+                            <small style="color:gray;">Complemento</small><br>
+                          <%= address.complement %>
+                        </div>
+                        <div class="col-md-6">
+                            <small style="color:gray;">CEP</small><br>
+                          <%= address.cep %>
+                        </div>
+                      </div><br>
+                      <div class="row">
+                        <div class="col-md-6">
+                            <small style="color:gray;">Bairro</small><br>
+                          <%= address.neighborhood %>
+                        </div>
+                        <div class="col-md-6">
+                            <small style="color:gray;">Cidade</small><br>
+                          <%= address.city %>
+                        </div>
+                      </div><br>
+                      <div class="row">
+                        <div class="col-md-6">
+                            <small style="color:gray;">UF</small><br>
+                          <%= address.state %>
+                        </div>
+                        <div class="col-md-6">
+                            <small style="color:gray;">Código IBGE</small><br>
+                          <%= address.ibge_code %>
+                        </div>
+                      </div><br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </td>
+            <td width='90px'>
+              <%= link_to(edit_citizen_path(citizen), class: 'btn btn-primary btn-sm icon-btn') do %>
+                Editar
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+    </table>
+  </div>
+
+    <%= paginate @citizens %>
+
+</div>

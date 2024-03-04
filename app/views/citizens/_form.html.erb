@@ -1,0 +1,78 @@
+<div class="container mt-5">
+
+<%= bootstrap_form_with(model: @citizen, local: true) do |f| %>
+
+  <%= render('layouts/form_record_errors', record: @citizen) %>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.text_field :name, label: "Nome", required: true %>
+        </div>
+        <div class="col-md-3">
+          <%= f.text_field :cpf, label: "CPF", required: true %>
+        </div>
+        <div class="col-md-3">
+          <%= f.text_field :cns, label: "CNS", required: true %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.email_field :email, label: "Email", required: true %>
+        </div>
+        <div class="col-md-2">
+          <%= f.text_field :phone, label: "Telefone", required: true %>
+        </div>
+        <div class="col-md-2">
+          <%= f.date_field :birthdate, label: "Data de Nascimento", required: true %>
+        </div>
+        <div class="col-md-2">
+          <% status_list = [["Ativo", "active"], ["Inativo", "inactive"]] %>
+          <%= f.select(:status, options_for_select(status_list, selected: @citizen.status || "active"), include_blank: false) %>
+        </div>
+      </div>
+
+      <p class="h5 mt-3 mb-3">Endereço</p>
+
+      <%= f.fields_for :address do |a| %>
+        <div class="row">
+          <div class="col-md-2">
+            <%= a.text_field :cep, label: "CEP", required: true %>
+          </div>
+          <div class="col-md-6">
+            <%= a.text_field :street, label: "Logradouro", required: true %>
+          </div>
+          <div class="col-md-1">
+            <%= a.text_field :number, label: "Número", required: true %>
+          </div>
+          <div class="col-md-3">
+            <%= a.text_field :complement, label: "Complemento", required: false %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <%= a.text_field :city, label: "Cidade", required: true %>
+          </div>
+          <div class="col-md-2">
+            <%= a.text_field :state, label: "UF", required: true %>
+          </div>
+          <div class="col-md-4">
+            <%= a.text_field :neighborhood, label: "Bairro", required: true %>
+          </div>
+          <div class="col-md-2">
+            <%= a.text_field :ibge_code, label: "Código IBGE", required: false %>
+          </div>
+        </div>
+
+      <% end %>
+
+      <br>
+
+    <div class="card-footer d-flex justify-content-start mt-3">
+      <%= f.submit("Salvar", class: 'btn btn-round btn-primary mr-4', data: {disable_with: "Aguarde"} ) %>
+      <%= link_to("Voltar", citizens_path, class: 'btn btn-round btn-default') %>
+    </div>
+  </div>
+<% end %>
+</div>
