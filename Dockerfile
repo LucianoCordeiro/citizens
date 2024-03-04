@@ -1,4 +1,4 @@
-FROM ruby:3.3.0-alpine3.17 AS base
+FROM ruby:3.3.0-preview1-alpine3.17
 
 RUN apk add --update --no-cache \
   build-base \
@@ -13,5 +13,3 @@ COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
 RUN bundle install
 COPY . /myapp
-
-FROM base AS release

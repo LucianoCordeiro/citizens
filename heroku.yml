@@ -2,7 +2,6 @@ build:
   docker:
     web:
       dockerfile: Dockerfile
-      target: release
 run:
   web: bundle exec rails server
 release:
