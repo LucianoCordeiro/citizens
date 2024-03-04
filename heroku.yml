@@ -1,0 +1,10 @@
+build:
+  docker:
+    web:
+      dockerfile: Dockerfile
+      target: release
+run:
+  web: bundle exec rails server
+  image: web
+  command:
+    - bundle exec rake db:migrate
