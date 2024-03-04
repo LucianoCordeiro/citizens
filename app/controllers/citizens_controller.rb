@@ -21,9 +21,16 @@ class CitizensController < ApplicationController
     @citizen = Citizen.new(form_params)
 
     if @citizen.save
+      message = "Cadastro criado com sucesso!"
+
+      CitizenMailer.new_message(
+        citizen: @citizen,
+        message: message
+      )
+
       SmsMessageService.new(
-        to: @citizen.phone_number,
-        message: "Cadastro criado com sucesso!"
+        to: @citizen.phone,
+        message: message
       ).send!
 
       redirect_to citizens_path
@@ -42,15 +49,15 @@ class CitizensController < ApplicationController
     if @citizen.update(params)
       message = "Seu cadastro foi atualizado para #{@citizen.active? ? "ativo" : "inativo"}"
 
-      SmsMessageService.new(
-        to: @citizen.phone,
-        message: message
-      ).send! if different_status
-
       CitizenMailer.new_message(
         citizen: @citizen,
         message: message
       ).deliver if different_status
+
+      SmsMessageService.new(
+        to: @citizen.phone,
+        message: message
+      ).send! if different_status
 
       redirect_to citizens_path
     else

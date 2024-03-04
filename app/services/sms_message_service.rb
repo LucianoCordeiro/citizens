@@ -7,16 +7,20 @@ class SmsMessageService
   end
 
   def send!
-    account_sid = "AC0b345dd5e283ea7d3ca5dea05b1dc7ea"
-    auth_token = "fa548426c24db2923ded3e46a13c1255"
+    client = Twilio::REST::Client.new(
+      twilio_credentials[:account_sid],
+      twilio_credentials[:auth_token]
+    )
 
-    client = Twilio::REST::Client.new account_sid, auth_token
-    mes = client.messages.create(
+    client.messages.create(
       body: message,
       to: to,
       from: "+19292389877"
     )
   end
 
+  def twilio_credentials
+    @credentials ||= Rails.application.credentials.twilio
+  end
 
 end

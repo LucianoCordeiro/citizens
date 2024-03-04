@@ -66,3 +66,4 @@ gem "cpf_cnpj"
 gem "geocoder"
 gem 'twilio-ruby', '~> 6.12.0'
 gem 'letter_opener'
+gem 'httplog'

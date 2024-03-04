@@ -111,6 +111,9 @@ GEM
     geocoder (1.8.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    httplog (1.6.3)
+      rack (>= 2.0)
+      rainbow (>= 2.0.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.0.1)
@@ -228,6 +231,7 @@ GEM
       rake (>= 12.2)
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
+    rainbow (3.1.1)
     rake (13.1.0)
     rdoc (6.6.2)
       psych (>= 4.0.0)
@@ -295,6 +299,7 @@ DEPENDENCIES
   cpf_cnpj
   debug
   geocoder
+  httplog
   importmap-rails
   jbuilder
   kaminari
