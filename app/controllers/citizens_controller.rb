@@ -21,6 +21,11 @@ class CitizensController < ApplicationController
     @citizen = Citizen.new(form_params)
 
     if @citizen.save
+      SmsMessageService.new(
+        to: @citizen.phone_number,
+        message: "Cadastro criado com sucesso!"
+      ).send!
+
       redirect_to citizens_path
     else
       render :new
@@ -32,7 +37,21 @@ class CitizensController < ApplicationController
 
   def update
     params = form_params.to_h
+    different_status = @citizen.status != params[:status]
+
     if @citizen.update(params)
+      message = "Seu cadastro foi atualizado para #{@citizen.active? ? "ativo" : "inativo"}"
+
+      SmsMessageService.new(
+        to: @citizen.phone,
+        message: message
+      ).send! if different_status
+
+      CitizenMailer.new_message(
+        citizen: @citizen,
+        message: message
+      ).deliver if different_status
+
       redirect_to citizens_path
     else
       render :edit
