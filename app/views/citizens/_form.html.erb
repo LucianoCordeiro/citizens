@@ -7,14 +7,17 @@
   <div class="card">
     <div class="card-body">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <%= f.text_field :name, label: "Nome", required: true %>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <%= f.text_field :cpf, label: "CPF", required: true %>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <%= f.text_field :cns, label: "CNS", required: true %>
+        </div>
+        <div class="col-md-4">
+          <%= f.file_field :avatar, required: true %>
         </div>
       </div>
       <div class="row">
@@ -68,7 +71,6 @@
       <% end %>
 
       <br>
-
     <div class="card-footer d-flex justify-content-start mt-3">
       <%= f.submit("Salvar", class: 'btn btn-round btn-primary mr-4', data: {disable_with: "Aguarde"} ) %>
       <%= link_to("Voltar", citizens_path, class: 'btn btn-round btn-default') %>

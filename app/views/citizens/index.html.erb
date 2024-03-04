@@ -69,18 +69,21 @@
               </span>
             </td>
             <td width='90px'>
-              <button type="button" class="btn btn-light btn-sm icon-btn" data-bs-toggle="modal" data-bs-target="#myModal">
-                Endereço
+              <button type="button" class="btn btn-light btn-sm icon-btn" data-bs-toggle="modal" data-bs-target="#myModal<%= citizen.id %>">
+                Ver mais
               </button>
 
-              <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal fade" id="myModal<%= citizen.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Endereço de <%= citizen.name %></h1>
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Dados de <%= citizen.name %></h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                      <div class="row">
+                        <%= image_tag(citizen.avatar, class: "mb-4", style: "height:35%;width:35%;display:block;margin-left:auto;margin-right:auto;") if citizen.avatar.attached? %>
+                      </div>
                       <% address = citizen.address %>
                       <div class="row">
                         <div class="col-md-6">
@@ -120,6 +123,16 @@
                         <div class="col-md-6">
                             <small style="color:gray;">Código IBGE</small><br>
                           <%= address.ibge_code %>
+                        </div>
+                      </div><br>
+                      <div class="row">
+                        <div class="col-md-6">
+                            <small style="color:gray;">Criado em</small><br>
+                          <%= address.created_at.strftime("%d/%m/%Y %H:%I") %>
+                        </div>
+                        <div class="col-md-6">
+                            <small style="color:gray;">Atualizado em</small><br>
+                          <%= address.updated_at.strftime("%d/%m/%Y %H:%I") %>
                         </div>
                       </div><br>
                     </div>

@@ -50,6 +50,7 @@ class CitizensController < ApplicationController
       :birthdate,
       :phone,
       :status,
+      :avatar,
       address_attributes: [
         :id,
         :citizen_id,

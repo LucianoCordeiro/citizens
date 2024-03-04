@@ -1,5 +1,6 @@
 class Citizen < ApplicationRecord
   has_one :address
+  has_one_attached :avatar
 
   accepts_nested_attributes_for :address
 
