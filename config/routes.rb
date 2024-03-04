@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get "/" => "citizens#index"
 
   resources :citizens
+
+  post "/geocode" => "geocoder#geocode"
   # Defines the root path route ("/")
   # root "posts#index"
 end
