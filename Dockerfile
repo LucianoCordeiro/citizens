@@ -5,7 +5,8 @@ RUN apk add --update --no-cache \
   shared-mime-info \
   postgresql-dev \
   tzdata \
-  bash
+  bash \
+  nodejs-current
 
 RUN mkdir /myapp
 WORKDIR /myapp

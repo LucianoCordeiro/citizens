@@ -21,6 +21,9 @@ default: &default
 
 development:
   <<: *default
+  host: db
+  username: postgres
+  password: mypassword
   database: citizens_development
 
   # The specified database role being used to connect to PostgreSQL.
