@@ -26,7 +26,7 @@ class CitizensController < ApplicationController
       CitizenMailer.new_message(
         citizen: @citizen,
         message: message
-      )
+      ).deliver
 
       SmsMessageService.new(
         to: @citizen.phone,
