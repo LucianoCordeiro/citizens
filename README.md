@@ -1,24 +1,19 @@
-# README
+# Citizens Application
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setup
 
-Things you may want to cover:
+To build the docker image and create the application container, run:
 
-* Ruby version
+```bash
+docker build .
+docker-compose up
+```
 
-* System dependencies
+Open a new terminal window to create the database and run the migrations:
 
-* Configuration
+```bash
+docker-compose run web rails db:create
+docker-compose run web rails db:migrate
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Connect to ``localhost:3000`` in the browser to see the application running
